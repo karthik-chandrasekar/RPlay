@@ -1,9 +1,7 @@
-#Cluster the input documents and find the summary of each cluster
-
 library(tm)
 options(header=FALSE, stringsAsFactors=FALSE, fileEncoding="latin1")
 
-inputData <- Corpus (DirSource("absolute input path"))
+inputData <- Corpus (DirSource("/Users/karthikchandrasekar/Downloads/DI-Support-master/input/"))
 inputData <- tm_map(inputData, tolower)
 inputData <- tm_map(inputData, removeNumbers)
 inputData <- tm_map(inputData, removePunctuation)
@@ -21,7 +19,12 @@ norm_eucl <- function(data_matrix) data_matrix/apply(data_matrix, MARGIN=1, FUN=
 norm_data <- norm_eucl(data_matrix)
 results <- kmeans(norm_data, 2)
 
+clusters <- 1:2
 
-
+clusterCenters = results$centers
+for(i in clusters)
+{
+  print(head(sort(clusterCenters[i,], decreasing=TRUE)))
+}
 
 
